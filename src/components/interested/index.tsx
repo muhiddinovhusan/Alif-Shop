@@ -24,7 +24,7 @@ console.log(products)
 </div>
      <div className='grid grid-cols-6 max-md:hidden max-lg:hidden gap-2 '>
 {
-    products.slice(6,12).map((item, i)=>(
+    products.slice(6,18).map((item, i)=>(
         <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-3 bg-zinc-100 pb-2 relative transition shadow-lg cursor-pointer'>
 <div className='w-full h-36 md:h-48 relative'>
 
@@ -66,7 +66,7 @@ console.log(products)
     </div>
     <div className='grid grid-cols-3  min-sm:hidden md:hidden gap-2 '>
 {
-    products.slice(6,9).map((item, i)=>(
+    products.slice(6,12).map((item, i)=>(
         <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-3 bg-zinc-100 pb-2 relative transition shadow-lg cursor-pointer'>
 <div className='w-full h-36 md:h-48 relative'>
 
@@ -108,7 +108,7 @@ console.log(products)
     </div>
     <div className='grid grid-cols-4 max-sm:hidden md:hidden gap-2 '>
 {
-    products.slice(6,10).map((item, i)=>(
+    products.slice(6,14).map((item, i)=>(
         <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-3 bg-zinc-100 pb-2 relative transition shadow-lg cursor-pointer'>
 <div className='w-full h-36 md:h-48 relative'>
 
@@ -150,7 +150,7 @@ console.log(products)
     </div>
     <div className='grid grid-cols-5 min-sm:hidden  lg:hidden gap-2 '>
 {
-    products.slice(6,11).map((item, i)=>(
+    products.slice(6,16).map((item, i)=>(
         <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-3 bg-zinc-100 pb-2 relative transition shadow-lg cursor-pointer'>
 <div className='w-full h-36 md:h-48 relative'>
 
