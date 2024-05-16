@@ -4,18 +4,69 @@ import useProductStore from '@/store/product/productStore';
 import { ChevronRightIcon, ShoppingCart } from 'lucide-react';
 import logo1 from '../../assets/images/logo1.svg'
 import Link from 'next/link';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import useAddToFavCartStore from '@/store/favorite/favoriteStore';
+import useAddToCartStore from '@/store/cart/cartStore';
 
 const Discount = () => {
     const { loading, products, error, fetchProducts } = useProductStore();
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-console.log(products)
-
+    const { cart, addToCart, updateQuantity, removeFromCart } = useAddToCartStore();
+    const { FavoriteCart, removeFromFavCart, addToFavoriteCart } = useAddToFavCartStore();
+    const [quantities, setQuantities] = useState({});
+  
+    useEffect(() => {
+      fetchProducts();
+    }, []);
+  
+    const handleAddToCart = (product) => {
+      addToCart(product);
+      setQuantities(prev => ({ ...prev, [product.id]: 1 }));
+    };
+  
+    const handleAddFavToCart = (product) => {
+      addToFavoriteCart(product);
+    };
+  
+    const isProductInCart = (productId) => {
+      return cart.some((item) => item.id === productId);
+    };
+  
+    const isProductInFavCart = (productId) => {
+      return FavoriteCart.some((item) => item.id === productId);
+    };
+  
+    const handleRemoveFromCart = (productId) => {
+      removeFromCart(productId);
+      setQuantities(prev => {
+        const newQuantities = { ...prev };
+        delete newQuantities[productId];
+        return newQuantities;
+      });
+    };
+  
+    const incrementQuantity = (productId) => {
+      setQuantities(prev => {
+        const newQuantity = (prev[productId] || 1) + 1;
+        updateQuantity(productId, newQuantity);
+        return { ...prev, [productId]: newQuantity };
+      });
+    };
+  
+    const decrementQuantity = (productId) => {
+      setQuantities(prev => {
+        if (prev[productId] > 1) {
+          const newQuantity = prev[productId] - 1;
+          updateQuantity(productId, newQuantity);
+          return { ...prev, [productId]: newQuantity };
+        } else {
+          handleRemoveFromCart(productId);
+          return prev;
+        }
+      });
+    };
+  
   return (
-   <div className='mt-8 flex-col'>
+   <div className='mt-8 '>
 <div className='mb-3 flex items-center gap-4'>
 <h1 className='text-xl font-semibold text-gray-900 md:text-2xl lg:text-3xl'>Chegirmalar 🔥</h1>
                 <Link href={"/"} className='flex items-center text-sm font-semibold hover:underline text-blue-500 md:text-lg'>
@@ -23,11 +74,11 @@ console.log(products)
                     <ChevronRightIcon />
                 </Link>
 </div>
-     <div className='grid grid-cols-6 max-md:grid-cols-4  max-lg:grid-cols-5 gap-2 '>
+     <div className='grid grid-cols-6 max-md:grid-cols-4  max-lg:grid-cols-5 max-sm:grid-cols-3  gap-3 '>
 {
     products.slice(18,24).map((item, i)=>(
-        <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-3 bg-zinc-100 pb-2 relative transition shadow-lg cursor-pointer'>
-<div className='w-full h-36 md:h-48 relative'>
+        <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-1  pb-2 relative transition  cursor-pointer'>
+<div className=' h-36   relative'>
 
     <img src={item.images[2]} alt={item.name} className='object-cover rounded-md w-full h-full' />
 </div>
@@ -44,7 +95,7 @@ console.log(products)
           ).toFixed(2)}
           $
         </div> */}
-                    <div className='flex flex-col gap-2 justify-start items-start text-sm font-medium px-2'>
+                    <div className='flex flex-col  justify-start items-start text-sm font-medium px-2'>
                 <p
                     className='line-clamp-2 text-gray-900 text-xs md:text-sm font-normal'
                 >
@@ -54,10 +105,13 @@ console.log(products)
                 <p className='line-through text-gray-400'>{item.price} usd</p>
                 <p className='text-red-500'>{(item.price - (item.price * item.discountPercentage) / 100).toFixed(2)} usd</p>
             </div>
-            <button type='button' className='ml-2 flex items-center gap-1 bg-yellow-500 py-1 px-2 md:py-2 md:px-3 rounded-lg transition hover:bg-yellow-500 hover:bg-opacity-60'>
-                <ShoppingCart className='w-5' />
-                <span className='text-xs md:text-sm'>Savatga</span>
-            </button>
+            <button
+                  onClick={() => handleAddToCart(item)}
+                  className='ml-2 flex items-center gap-1 bg-yellow-500 py-1  px-2 md:py-2 md:px-3 h-12 rounded-lg transition hover:bg-yellow-500 hover:bg-opacity-60'>
+                  <ShoppingCart className='w-5' />
+
+                  <span>Savatga qo'shish</span>
+                </button>
 
       </div>
         </div>

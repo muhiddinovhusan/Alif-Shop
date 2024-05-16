@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import Header from "@/layout/header";
 import Footer from "@/layout/footer";
 import Description from "@/components/description";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const inter = Inter({ subsets: ["latin"] });
