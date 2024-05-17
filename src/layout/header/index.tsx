@@ -6,7 +6,10 @@ import Image from 'next/image';
 const Header = () => {
 
   return (
-    <header className=" flex  md:flex-row justify-between items-center gap-3 py-4">
+    <header className=" flex  md:flex-row justify-between items-center gap-3 py-4" style={{
+          
+      maxWidth: 1320, margin: "0 auto", padding: "0 20px" 
+   }}>
      
      <Link href="#" className='hidden w-28 h-8 md:flex items-center justify-center'>
         <Image src={Logo} alt="logo" width={115} height={32} />
@@ -25,14 +28,15 @@ const Header = () => {
             <Search className='text-yellow-500 w-6 ' />{""}
           </button>
         </div>
-        <div className='hidden md:flex flex-col items-center'>
-        <ShoppingCart />
-        <span className='text-xs lg:text-sm'>Savat</span>
-      </div>
-      <div className='hidden md:flex flex-col items-center'>
-        <Heart />
-        <span className='text-xs lg:text-sm'>Saralanganlar</span>
-      </div>
+
+        <Link  href="/cart" className='hidden no-underline md:flex flex-col items-center'>
+        <ShoppingCart className='text-black' />
+        <span className='text-xs lg:text-sm text-black'>Savat</span>
+      </Link>
+      <Link href="/favorites" className='hidden no-underline md:flex flex-col items-center'>
+        <Heart className="text-black"/>
+        <span className='text-xs text-black lg:text-sm'>Saralanganlar</span>
+      </Link>
           <button className='border-[#FFBE1F] border p-2 h-10 max-md:hidden rounded-md'>Kirish</button>
           <div className=' hidden md:flex items-center gap-1'>
         <button type='button' className='uppercase text-sm text-slate-400'>Рус</button>

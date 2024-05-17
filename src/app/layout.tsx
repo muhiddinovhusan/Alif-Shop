@@ -21,14 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className} style={{
-         maxWidth: 1320, margin: "0 auto", padding: "0 20px" 
-      }}>
+      <body className={inter.className} >
        
 
         <Header />
-     
-        <main className=" ">{children}</main>
+
+        <main className=" " style={{
+          
+         maxWidth: 1320, margin: "0 auto", padding: "0 20px" 
+      }}>{children}
+        </main>
         <Description/>
         <Footer />
       </body>

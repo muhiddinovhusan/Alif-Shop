@@ -36,14 +36,14 @@ const Interested = () => {
     return FavoriteCart.some((item) => item.id === productId);
   };
 
-  const handleRemoveFromCart = (productId) => {
-    removeFromCart(productId);
-    setQuantities(prev => {
-      const newQuantities = { ...prev };
-      delete newQuantities[productId];
-      return newQuantities;
-    });
-  };
+  // const handleRemoveFromCart = (productId) => {
+  //   removeFromCart(productId);
+  //   setQuantities(prev => {
+  //     const newQuantities = { ...prev };
+  //     delete newQuantities[productId];
+  //     return newQuantities;
+  //   });
+  // };
 
   const incrementQuantity = (productId) => {
     setQuantities(prev => {
@@ -60,14 +60,13 @@ const Interested = () => {
         updateQuantity(productId, newQuantity);
         return { ...prev, [productId]: newQuantity };
       } else {
-        handleRemoveFromCart(productId);
         return prev;
       }
     });
   };
 
   return (
-    <div className='mt-8'>
+    <div className='mt-8 mb-10'>
       <div className='mb-3 flex items-center gap-4'>
         <h1 className='text-xl font-semibold text-gray-900 md:text-2xl lg:text-3xl'>Sizni qiziqtirishi Mumkin</h1>
         <Link href={"/"} className='flex items-center text-sm font-semibold hover:underline text-blue-500 md:text-lg'>
@@ -77,8 +76,10 @@ const Interested = () => {
       </div>
       <div className='grid grid-cols-6 max-md:grid-cols-4 max-lg:grid-cols-5 max-sm:grid-cols-3 gap-2'>
         {products.slice(4, 16).map((item, i) => (
+   
           <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-1 pb-2 relative transition cursor-pointer'>
-            <div className='w-full h-36 bg-zinc-100 p-[1px] rounded-md relative'>
+            <Link href={`products/${item.id}`}></Link>
+            <Link href={`products/${item.id}`} className='w-full h-36 bg-zinc-100 p-[1px] rounded-md relative'>
               <img src={item.images[2]} alt={item.name} className='object-cover rounded-md w-full h-full' />
               <div className='absolute top-2 right-2'>
                 {isProductInFavCart(item.id) ? (
@@ -89,7 +90,7 @@ const Interested = () => {
                   <img src={LikeIcon.src} alt="" onClick={() => handleAddFavToCart(item)} />
                 )}
               </div>
-            </div>
+            </Link>
             <div className="relative">
               <div className="text-sm font-semibold inline-block px-3 py-0.5 bg-red-500 text-white rounded-2xl absolute left-2 -top-8">
                 {Math.round(item.discountPercentage)}%
@@ -102,19 +103,24 @@ const Interested = () => {
                 <p className='line-through text-gray-400'>{item.price} USD</p>
                 <p className='text-red-500'>{(item.price - (item.price * item.discountPercentage) / 100).toFixed(2)} USD</p>
               </div>
+
+
               {isProductInCart(item.id) ? (
-                <div className='ml-2 flex justify-center items-center gap-1 bg-slate-200 h-12 md:py-2 md:px-3 rounded-lg transition hover:bg-opacity-60'>
-                  <FaMinus className='cursor-pointer' onClick={() => decrementQuantity(item.id)} />
-                  <span>{quantities[item.id]}</span>
+                <div className='ml-2 w-[120px] h-[40px] flex justify-center items-center gap-3 bg-inherit  border border- md:py-2 md:px-3 rounded-lg transition hover:bg-opacity-60'>
+                  <FaMinus
+                    className={`cursor-pointer ${quantities[item.id] === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    onClick={() => decrementQuantity(item.id)}
+                    disabled={quantities[item.id] === 1}
+                  />                  <span>{quantities[item.id]}</span>
                   <FaPlus className='cursor-pointer' onClick={() => incrementQuantity(item.id)} />
                 </div>
               ) : (
                 <button
                   onClick={() => handleAddToCart(item)}
-                  className='ml-2 flex items-center gap-1 bg-yellow-500 py-1  px-2 md:py-2 md:px-3 h-12 rounded-lg transition hover:bg-yellow-500 hover:bg-opacity-60'>
+                  className='ml-2 w-[120px] h-[40px] flex items-center gap-1 bg-yellow-500 py-1  px-2 md:py-2 md:px-3 rounded-lg transition hover:bg-yellow-500 hover:bg-opacity-60'>
                   <ShoppingCart className='w-5' />
 
-                  <span>Savatga qo'shish</span>
+                  <span>В корзину</span>
                 </button>
               )}
             </div>
