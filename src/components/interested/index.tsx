@@ -25,9 +25,11 @@ interface Product {
 const Interested: React.FC = () => {
   const { loading, products, error, fetchProducts } = useProductStore();
   const { cart, addToCart, updateQuantity, removeFromCart } = useAddToCartStore();
+
   const { FavoriteCart, removeFromFavCart, addToFavoriteCart } = useAddToFavCartStore();
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
 
+  
   useEffect(() => {
     fetchProducts();
   }, []);

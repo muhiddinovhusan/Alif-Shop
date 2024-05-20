@@ -4,7 +4,7 @@ const Description = () => {
   return (
     <div className=' bg-gray-100'>
 
-    <div className="grid grid-cols-4 mt-10"  style={{
+    <div className="grid grid-cols-4 mt-16"  style={{
           
           maxWidth: 1320, margin: "0 auto", padding: "0 20px" 
        }}>
