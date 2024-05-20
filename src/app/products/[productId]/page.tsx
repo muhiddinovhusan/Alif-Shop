@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 
 const ProductDetails = ({ params : {productId}}) => {
@@ -27,7 +28,8 @@ const ProductDetails = ({ params : {productId}}) => {
   }, [productId]);
 
 
-  return <div>ProductDetails</div>;
+  return <div>
+  </div>;
 };
 
 export default ProductDetails;

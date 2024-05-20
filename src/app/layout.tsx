@@ -5,6 +5,8 @@ import Header from "@/layout/header";
 import Footer from "@/layout/footer";
 import Description from "@/components/description";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Toaster } from "react-hot-toast";
+import AppSection from "@/components/appRecomend/App";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,12 +27,14 @@ export default function RootLayout({
        
 
         <Header />
-
+<Toaster/>
         <main className=" " style={{
           
          maxWidth: 1320, margin: "0 auto", padding: "0 20px" 
       }}>{children}
+
         </main>
+        <AppSection/>
         <Description/>
         <Footer />
       </body>

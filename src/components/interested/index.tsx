@@ -8,32 +8,49 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FaHeart, FaMinus, FaPlus } from 'react-icons/fa';
 import useAddToFavCartStore from '@/store/favorite/favoriteStore';
+import toast from 'react-hot-toast';
+import { ProductType } from '@/types/product.types';
 
-const Interested = () => {
+
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  images: string[];
+}
+
+const Interested: React.FC = () => {
   const { loading, products, error, fetchProducts } = useProductStore();
   const { cart, addToCart, updateQuantity, removeFromCart } = useAddToCartStore();
   const { FavoriteCart, removeFromFavCart, addToFavoriteCart } = useAddToFavCartStore();
-  const [quantities, setQuantities] = useState({});
+  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product :any) => {
     addToCart(product);
     setQuantities(prev => ({ ...prev, [product.id]: 1 }));
+    toast.success("Tovar Savatga qoshildi",
+    product
+  )
   };
 
-  const handleAddFavToCart = (product) => {
+  const handleAddFavToCart = (product :ProductType) => {
     addToFavoriteCart(product);
+  
   };
 
-  const isProductInCart = (productId) => {
+  const isProductInCart = (productId :number | string) => {
     return cart.some((item) => item.id === productId);
   };
 
-  const isProductInFavCart = (productId) => {
-    return FavoriteCart.some((item) => item.id === productId);
+  const isProductInFavCart = (productId : number) => {
+    return FavoriteCart.some((item : ProductType) => item.id === productId);
   };
 
   // const handleRemoveFromCart = (productId) => {
@@ -53,7 +70,7 @@ const Interested = () => {
     });
   };
 
-  const decrementQuantity = (productId) => {
+  const decrementQuantity = (productId : number) => {
     setQuantities(prev => {
       if (prev[productId] > 1) {
         const newQuantity = prev[productId] - 1;
@@ -74,13 +91,13 @@ const Interested = () => {
           <ChevronRightIcon />
         </Link>
       </div>
-      <div className='grid grid-cols-6 max-md:grid-cols-4 max-lg:grid-cols-5 max-sm:grid-cols-3 gap-2'>
+      <div className='grid grid-cols-6 max-md:grid-cols-4 max-lg:grid-cols-5 max-sm:grid-cols-3 gap-3'>
         {products.slice(4, 16).map((item, i) => (
    
           <div key={i} className='w-full rounded-md flex flex-col justify-start items-start gap-1 pb-2 relative transition cursor-pointer'>
-            <Link href={`products/${item.id}`}></Link>
-            <Link href={`products/${item.id}`} className='w-full h-36 bg-zinc-100 p-[1px] rounded-md relative'>
+            <Link href={`products/${item.id}`} className='w-full h-36 bg-zinc-100 p-[1px]   rounded-md relative'>
               <img src={item.images[2]} alt={item.name} className='object-cover rounded-md w-full h-full' />
+                </Link>
               <div className='absolute top-2 right-2'>
                 {isProductInFavCart(item.id) ? (
                   <svg width="24" height="24" viewBox="0 0 24 24" onClick={() => removeFromFavCart(item.id)} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -90,8 +107,9 @@ const Interested = () => {
                   <img src={LikeIcon.src} alt="" onClick={() => handleAddFavToCart(item)} />
                 )}
               </div>
-            </Link>
             <div className="relative">
+            <Link href={`products/${item.id}`}>
+
               <div className="text-sm font-semibold inline-block px-3 py-0.5 bg-red-500 text-white rounded-2xl absolute left-2 -top-8">
                 {Math.round(item.discountPercentage)}%
               </div>
@@ -103,7 +121,7 @@ const Interested = () => {
                 <p className='line-through text-gray-400'>{item.price} USD</p>
                 <p className='text-red-500'>{(item.price - (item.price * item.discountPercentage) / 100).toFixed(2)} USD</p>
               </div>
-
+              </Link>
 
               {isProductInCart(item.id) ? (
                 <div className='ml-2 w-[120px] h-[40px] flex justify-center items-center gap-3 bg-inherit  border border- md:py-2 md:px-3 rounded-lg transition hover:bg-opacity-60'>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Description = () => {
   return (
-    <div className='mt-16'>
+    <div className=' bg-gray-100'>
 
     <div className="grid grid-cols-4 mt-10"  style={{
           
