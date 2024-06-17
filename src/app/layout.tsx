@@ -30,7 +30,7 @@ export default function RootLayout({
 <Toaster/>
         <main className=" " style={{
           
-         maxWidth: 1320, margin: "0 auto", padding: "0 20px" 
+         maxWidth: 1250, margin: "0 auto", padding: "0 20px" 
       }}>{children}
 
         </main>

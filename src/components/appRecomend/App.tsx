@@ -5,7 +5,7 @@ import phone from '../../assets/images/Image [object-contain].svg'
 
 const AppSection = () => {
     return (
-        <section className='mt-40 border-b-2 border-gray-200 bg-gray-100'>
+        <section className='mt-40 border-b-2  border-gray-200 bg-gray-100'>
 
             <div className=' flex flex-col sm:flex-row items-center justify-center relative pt-72 sm:p-7 sm:pl-72'
               >

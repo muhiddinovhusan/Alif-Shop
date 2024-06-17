@@ -16,7 +16,7 @@ const ProductCard = ({item, index}:{
     const { FavoriteCart, removeFromFavCart, addToFavoriteCart } = useAddToFavCartStore();
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
   
-
+    
     const handleAddToCart = (product :any) => {
         addToCart(product);
         setQuantities(prev => ({ ...prev, [product.id]: 1 }));
@@ -29,7 +29,6 @@ const ProductCard = ({item, index}:{
         addToFavoriteCart(product);
       
       };
-
     
       const isProductInCart = (productId :number | string) => {
         return cart.some((item) => item.id === productId);
@@ -59,8 +58,8 @@ const ProductCard = ({item, index}:{
         return product ? product.quantity : 0;
       };
   return (
-    <div key={index} className='w-[195px] max-sm:w-[182px] rounded-md flex flex-col justify-start items-start gap-1 pb-2 relative transition cursor-pointer'>
-    <Link href={`products/${item.id}`} className='w-full h-36  bg-zinc-100 p-[1px]   rounded-md relative'>
+    <div key={index} className='w-full rounded-md flex flex-col justify-start items-start gap-1 pb-2 relative transition cursor-pointer'>
+    <Link href={`products/${item.id}`} className='w-full h-36 max-sm:w-44 bg-zinc-100 p-[1px]   rounded-md relative'>
       <img src={item.thumbnail} alt={item.name} className='object-cover rounded-md w-full h-full' />
         </Link>
       <div className='absolute top-2 right-2 max-sm:right-3'>

@@ -1,12 +1,16 @@
 "use client"
 import useAddToCartStore from "@/store/cart/cartStore";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Cart = () => {
   const { cart, addToCart, updateQuantity, removeFromCart } = useAddToCartStore();
-console.log(cart)
+// console.log(cart)
 
-  return <div>Cart</div>;
+
+  return <div className="">
+
+  </div>;
 };
 
 export default Cart;

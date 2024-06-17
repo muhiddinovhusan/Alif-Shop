@@ -1,6 +1,7 @@
 import { ChevronDownIcon } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import './index.css'
 const NavbarCategory = () => {
 
 
@@ -40,11 +41,11 @@ const NavbarCategory = () => {
     ]
   return (
     <div className='mt-1 my-4 flex items-center gap-2 '>
-        <div className='w-full flex items-center gap-4 overflow-x-scroll  whitespace-nowrap py-2'>
+        <div className='w-full flex items-center gap-4 overflow-x-scroll card-list  whitespace-nowrap py-2'>
 
    {
     Category.map((ctg, i)=>(
-        <div key={i} className='text-gray-400 font-semibold text-sm hover:border-b-[2px]  hover:border-gray-900 hover:text-gray-900 transition'>
+        <div key={i} className='text-gray-400 font-semibold  text-sm hover:border-b-[2px]    hover:border-gray-900 hover:text-gray-900 transition-all'>
 {ctg.name}
         </div>
     ))

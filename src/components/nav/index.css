@@ -1,3 +1,7 @@
+.card-list{
+    scrollbar-width: none;
+}
+
 .card-list::-webkit-scrollbar {
     display: none;
 }
